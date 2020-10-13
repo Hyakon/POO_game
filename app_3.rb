@@ -21,13 +21,20 @@ while my_game.still_ongoing?
   puts "Round #{round}".center(25)
   puts '=' * 25
   round += 1
+  sleep(1)
 
   my_game.show_player
+  sleep(2)
+  puts '=' * 25
 
   my_game.menu
   choice = gets.chomp
+  puts '=' * 25
   my_game.menu_choice(choice)
+  sleep(2)
+  puts '=' * 25
   my_game.enemies_attack
+  sleep(2)
 
 end
 

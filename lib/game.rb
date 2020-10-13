@@ -47,14 +47,14 @@ attaquer un joueur en vue :"
     when 's'
       @human_player.search_health_pack
     when /^[0-9]/
-      player = enemies[choice.to_i]
-      @human_player.attacks(player)
-      kill_player(player) unless player.life_points.positive?
+      menu_choice_bis(choice)
+    else
+      perf_menu
     end
   end
 
   def enemies_attack
-    @enemies.each { |enemy| enemy.attacks(@human_player) }
+    @enemies.each { |enemy| sleep(1); enemy.attacks(@human_player) }
   end
 
   def end
@@ -63,5 +63,19 @@ attaquer un joueur en vue :"
     else
       puts 'You loose'
     end
+  end
+
+  private
+
+  def perf_menu
+    puts 'Do something in menu'
+    sleep(2)
+    menu
+    menu_choice(gets.chomp)
+  end
+  def menu_choice_bis(choice)
+    player = enemies[choice.to_i]
+    @human_player.attacks(player)
+    kill_player(player) unless player.life_points.positive?
   end
 end

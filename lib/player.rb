@@ -61,6 +61,12 @@ class HumanPlayer < Player
 
   def search_health_pack
     dice = rand(1..6)
+    search_health_pack_bis(dice)
+  end
+
+  private
+
+  def search_health_pack_bis(dice)
     if dice == 1
       puts 'You found nothing'
     elsif dice.between?(2, 5)
