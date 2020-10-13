@@ -6,6 +6,7 @@ Bundler.require
 require_relative 'lib/game'
 require_relative 'lib/player'
 
+# noinspection SpellCheckingInspection
 puts "------------------------------------------------
 |Bienvenue sur 'ILS VEULENT TOUS MA POO' !      |
 |Le but du jeu est d'être le dernier survivant !|
@@ -14,7 +15,7 @@ puts "What's your Player name"
 name = gets.chomp
 
 player1 = Player.new('Josiane')
-player2 = Player.new('José')
+player2 = Player.new('Josy')
 enemies = [player1, player2]
 human = HumanPlayer.new(name)
 round = 1
@@ -26,6 +27,7 @@ while human.life_points.positive? && (enemies[0].life_points.positive? || enemie
   puts 'States of the players :'
   puts human.show_state
 
+  # noinspection SpellCheckingInspection
   print "\nQuelle action veux-tu effectuer ?
 
   a - chercher une meilleure arme
@@ -47,6 +49,8 @@ attaquer un joueur en vue :
     human.attacks(enemies[choice.to_i])
   when '1'
     human.attacks(enemies[choice.to_i])
+  else
+    puts 'try again'
   end
 
   puts 'Enemies fight back !!'

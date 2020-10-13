@@ -7,8 +7,7 @@ require_relative 'lib/game'
 require_relative 'lib/player'
 
 player1 = Player.new('Josiane')
-player2 = Player.new('José')
-human = HumanPlayer.new('Human')
+player2 = Player.new('Josy')
 round = 1
 
 while player1.life_points.positive? && player2.life_points.positive?
@@ -27,5 +26,3 @@ while player1.life_points.positive? && player2.life_points.positive?
   puts
   round += 1
 end
-
-binding.pry

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Game Class
 class Game
   attr_accessor :human_player, :enemies
 
@@ -24,6 +27,7 @@ class Game
   end
 
   def menu
+    # noinspection SpellCheckingInspection
     puts "\nQuelle action veux-tu effectuer ?
 
   a - chercher une meilleure arme

@@ -71,6 +71,5 @@ class HumanPlayer < Player
       @life_points += 80
     end
     @life_points = 100 if life_points > 100
-
   end
 end
