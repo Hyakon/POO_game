@@ -2,28 +2,44 @@
 
 # Game Class
 class Game
-  attr_accessor :human_player, :enemies
+  attr_accessor :human_player, :enemies_in_sight, :players_left
 
   def initialize(name)
-    @enemies = []
+    @enemies_in_sight = []
+    @players_left = 10
     @human_player = HumanPlayer.new(name)
     4.times do |i|
-      @enemies << Player.new("player#{i + 1}")
+      @enemies_in_sight << Player.new("player_#{i + 1}")
     end
   end
 
   def kill_player(player)
-    @enemies.delete(player)
+    @enemies_in_sight.delete(player)
+    @players_left -= 1
   end
 
   # @return [TrueClass, FalseClass]
+  #
   def still_ongoing?
-    @human_player.life_points.positive? && !@enemies.empty?
+    @human_player.life_points.positive? && @players_left.positive?
   end
 
   def show_player
     puts human_player.show_state
-    puts "Enemies left : #{@enemies.size}"
+    puts "Enemies left : #{@enemies_in_sight.size}"
+  end
+
+  def new_players_in_sight
+    dice = rand(1..6)
+    if players_left <= enemies_in_sight.size
+      puts 'All players are in sight'
+    elsif dice == 1
+      puts 'Incoming players none'
+    elsif dice.between?(2, 4)
+      new_player(1)
+    else
+      new_player(2)
+    end
   end
 
   def menu
@@ -33,10 +49,11 @@ class Game
   a - chercher une meilleure arme
   s - chercher à se soigner
 
+
 attaquer un joueur en vue :"
-    @enemies.size.times do |i|
+    @enemies_in_sight.size.times do |i|
       print "   #{i} - "
-      print enemies[i].show_state
+      print enemies_in_sight[i].show_state
     end
   end
 
@@ -54,7 +71,10 @@ attaquer un joueur en vue :"
   end
 
   def enemies_attack
-    @enemies.each { |enemy| sleep(1); enemy.attacks(@human_player) }
+    @enemies_in_sight.each do |enemy|
+      sleep(0.5)
+      enemy.attacks(@human_player)
+    end
   end
 
   def end
@@ -67,14 +87,26 @@ attaquer un joueur en vue :"
 
   private
 
+  def new_player(new)
+    puts 'One player incoming' if new == 1
+    puts 'Two player incoming' if new == 2
+
+    new.times do
+      player = Player.new('player_' + rand(5..9999).to_s)
+      @enemies_in_sight << player
+      player.show_state
+    end
+  end
+
   def perf_menu
     puts 'Do something in menu'
     sleep(2)
     menu
     menu_choice(gets.chomp)
   end
+
   def menu_choice_bis(choice)
-    player = enemies[choice.to_i]
+    player = enemies_in_sight[choice.to_i]
     @human_player.attacks(player)
     kill_player(player) unless player.life_points.positive?
   end

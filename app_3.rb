@@ -24,17 +24,20 @@ while my_game.still_ongoing?
   sleep(1)
 
   my_game.show_player
-  sleep(2)
+  sleep(1)
   puts '=' * 25
 
+  my_game.new_players_in_sight
+  sleep(1)
   my_game.menu
+  print ' > '
   choice = gets.chomp
   puts '=' * 25
   my_game.menu_choice(choice)
-  sleep(2)
+  sleep(1)
   puts '=' * 25
   my_game.enemies_attack
-  sleep(2)
+  sleep(1)
 
 end
 
